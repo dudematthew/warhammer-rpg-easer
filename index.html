@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="author" content="Mateusz Moczydłowski" />
+    <title>WARHAMMER 2 RPG EASER</title>
+
+    <link rel="shortcut icon" href="./img/icon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="modifiers.css">
+    <link rel="stylesheet" href="./fonts/fontawesome/all.css" />
+</head>
+<body>
+    <div class="main_screen_box">
+    <img src="./img/logo.png" class="icon" alt="Warhammer" />
+       <h1 class="--no-break">Warhammer 2 RPG easer v0.9.5</h1>
+
+
+       <div class="separate"></div>
+       <h2>Szybkie rzuty</h2>
+
+       <div class="flex">
+
+            <!-- HIT LOCATION -->
+            <div class="working_block">
+                <h3>Lokacja trafienia</h3>
+                <p class="--no-break">dla:</p>
+                <select id="hit_location_entity_type"></select>
+                <button onclick="ShowHitLocation('random');">Losuj</button>
+                <div id="hit_location_loading_icon"></div>
+                <p>lub ręcznie</p>
+                <input type="number" name="0" placeholder="Wpisz wynik z kostki..." id="hit_location_input" class="enter_click">
+                <button onclick="ShowHitLocation('input')">Przetłumacz</button>
+                <p>Wynik:</p>
+                <div class="output" id="hit_location_output">
+                    <button class="clear_button" onclick="ClearParent(this);">Wyczyść</button>
+                </div>
+            </div>
+
+            <!-- DRUNK TABLE -->
+            <div class="working_block">
+                <h3>Pijaństwo</h3>
+                <button onclick="ShowDrunkEffect('random');">Losuj</button>
+                <div id="drunk_effect_loading_icon"></div>
+                <p>lub ręcznie</p>
+                <input type="number" name="1" class="enter_click" placeholder="Wpisz wynik z kostki..." id="drunk_effect_input">
+                <button onclick="ShowDrunkEffect('input')">Przetłumacz</button>
+                <p>Wynik:</p>
+                <div class="output" id="drunk_effect_output">
+                    <button class="clear_button" onclick="ClearParent(this);">Wyczyść</button>
+                </div>
+            </div>
+
+            <!-- CRITICAL TABLE -->
+            <div class="working_block">
+                <h3>Tabelka krytyczna</h3>
+                <p>Wybierz:</p><br>
+                <div class="input-container --no-break">
+                        <i class="fas fa-dice icon --clickable" style="height: 40px; line-height: 30px;" onclick="RandomHitLocationInput();" title="Losuj"></i>
+                        <select id="critical_effect_hit_location">
+                            <option value="disabled" disabled selected >Lokacja trafienia</option>
+                            <option value="0">Głowa</option>
+                            <option value="1">Korpus</option>
+                            <option value="2">Ręka</option>
+                            <option value="3">Noga</option>
+                        </select>
+                </div>
+                <select id="critical_effect_plus_number">
+                        <option value="1">+1</option>
+                        <option value="2">+2</option>
+                        <option value="3">+3</option>
+                        <option value="4">+4</option>
+                        <option value="5">+5</option>
+                        <option value="6">+6</option>
+                        <option value="7">+7</option>
+                        <option value="8">+8</option>
+                        <option value="9">+9</option>
+                        <option value="10">+10</option>
+                    </select>
+                    <div id="critical_effect_hit_location_loading_icon"></div>
+                <br><br>
+                <p>Losuj:</p>
+                <button onclick="ShowCriticalEffect('random');">Losuj rzut na trafienie</button>
+                <div id="critical_effect_loading_icon"></div>
+                <p>lub ręcznie:</p>
+                <input type="number" id="critical_effect_input" placeholder="Wpisz wynik z kostki." name="2" class="enter_click">
+                <button onclick="ShowCriticalEffect('input')">Przetłumacz</button>
+                <p>Wynik:</p>
+                <div class="output" id="critical_effect_output">
+                    <button class="clear_button" onclick="ClearParent(this);">Wyczyść</button>
+                </div>
+            </div>
+            <div class="working_block">
+                <h2>Mutacje chaosu</h2>
+                <button onclick="ShowChaosMutation('random');">Losuj</button>
+                <div id="chaos_mutation_loading_icon"></div>
+                <p>lub ręcznie</p>
+                <input type="number" name="1" class="enter_click" placeholder="Wpisz wynik z kostki..." id="chaos_mutation_input">
+                <button onclick="ShowChaosMutation('input')">Przetłumacz</button>
+                <p>Wynik:</p>
+                <div class="output" id="chaos_mutation_output">
+                        <button class="clear_button" onclick="ClearParent(this);">Wyczyść</button>
+                </div>
+            </div>
+            <div class="working_block">
+                <h2>Kości</h2>
+                <div class="separation_box">
+                    <h3>K100</h3>
+                    <button onclick="RollK100('random');">Rzuć</button>
+                    <div id="roll_k100_loading_icon"></div>
+                    <div class="output" id="roll_k100_output">
+                        <button class="clear_button" onclick="ClearParent(this);">Wyczyść</button>
+                    </div>
+                </div>
+                <div class="separation_box">
+                        <h3>K10</h3>
+                        <select class="icon_input" id="roll_k10_numbers_quantity">
+                            <p>ilość kości:</p>
+                            <option value="1">Jedna</option>
+                            <option value="2">Dwie</option>
+                            <option value="3">Trzy</option>
+                            <option value="4">Cztery</option>
+                            <option value="5">Pięć</option>
+                            <option value="6">Sześć</option>
+                            <option value="7">Siedem</option>
+                            <option value="8">Osiem</option>
+                        </select>
+                        <button onclick="RollK10();">Rzuć</button>
+                        <div id="roll_k10_loading_icon"></div>
+                        <div class="output" id="roll_k10_output">
+                            <button class="clear_button" onclick="ClearParent(this);">Wyczyść</button>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BATTLE ORGANIZER -->
+        <div class="separate"></div>
+        <h2>Organizator walki</h2>
+        <div class="fight_organizer_menu">
+            <div class="input-container --no-break">
+                <i class="fas fa-list icon"></i>
+                <input type="text" class="icon_input" id="fight_organizer_input_name" placeholder="Nazwa" value="Goblin">
+            </div>
+            <div class="input-container --no-break">
+                <div class="fas fa-fist-raised icon --clickable" title="Zmodyfikuj losowo statystykę w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_ww');"></div>
+                <input type="number" class="icon_input" id="fight_organizer_input_ww" placeholder="WW">
+            </div>
+            <div class="input-container">
+                <i class="fas fa-eye icon --clickable" title="Zmodyfikuj losowo statystykę w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_us');"></i>
+                <input type="number" class="icon_input" id="fight_organizer_input_us" placeholder="US">
+            </div>
+            <div class="input-container">
+                <i class="fas fa-weight-hanging	icon --clickable" title="Zmodyfikuj losowo statystykę w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_k');"></i>
+                <input type="number" class="icon_input" id="fight_organizer_input_k" placeholder="K">
+            </div>
+            <div class="input-container">
+                <i class="fas fa-shield-alt icon --clickable" title="Zmodyfikuj losowo statystykę w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_odp');"></i>
+                <input type="number" class="icon_input" id="fight_organizer_input_odp" placeholder="Odp">
+            </div>
+            <div class="input-container">
+                <i class="fas fa-running icon --clickable" title="Zmodyfikuj losowo statystykę w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_zr');"></i>
+                <input type="number" class="icon_input" id="fight_organizer_input_zr" placeholder="Zr">
+            </div>
+            <div class="input-container">
+                <i class="fas fa-brain icon --clickable" title="Zmodyfikuj losowo statystykę w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_int');"></i>
+                <input type="number" class="icon_input" id="fight_organizer_input_int" placeholder="Int">
+            </div>
+            <div class="input-container">
+                <i class="fas fa-angry icon --clickable" title="Zmodyfikuj losowo statystykę w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_sw');"></i>
+                <input type="number" class="icon_input" id="fight_organizer_input_sw" placeholder="SW">
+            </div>
+            <div class="input-container">
+                <i class="fas fa-comments icon --clickable" title="Zmodyfikuj losowo statystykę w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_ogd');"></i>
+                <input type="number" class="icon_input" id="fight_organizer_input_ogd" placeholder="Ogd">
+            </div>
+            <div class="input-container">
+                <i class="fas fa-heart icon --clickable" title="Zmodyfikuj losowo statystykę w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_hp');"></i>
+                <input type="number" class="icon_input" id="fight_organizer_input_hp" placeholder="Żyw">
+            </div>
+            <div class="input-container">
+                <i class="fas fa-dice icon --clickable" onclick="RandomInitiativeInput();"></i>
+                <i class="fab fa-first-order icon --gold-font"></i>
+                <input type="number" class="icon_input" id="fight_organizer_input_initiative" placeholder="Inicjatywa">
+                <div id="initiative_loading_animation" class="loading_animation--small"></div>
+            </div>
+            <div class="input-container --no-break">
+                <i class="fa fa-plus icon"></i>
+                <h4 class="--no-break">Szybkość:</h4>
+                <select id="fight_organizer_input_speed" class="icon_input fight_entity__attribute">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+            </div>
+            <div class="input-container --no-break">
+                <i class="fa fa-plus icon"></i>
+                <h4 class="--no-break">Siła:</h4>
+                <select id="fight_organizer_input_dmg" class="icon_input fight_entity__attribute">
+                    <option value="-4">S-4</option>
+                    <option value="-3">S-3</option>
+                    <option value="-2">S-2</option>
+                    <option value="-1">S-1</option>
+                    <option value="0" selected>S</option>
+                    <option value="+1">S+1</option>
+                    <option value="+2">S+2</option>
+                    <option value="+3">S+3</option>
+                    <option value="+4">S+4</option>
+                </select>
+            </div>
+            <div class="input-container --no-break">
+                <i class="fa fa-border-style icon"></i>
+                <select class="icon_input fight_entity__attribute" id="fight_entity_template_select">
+                    <option value="disabled" disabled selected >Wzór</option>
+                </select>
+            </div>
+            <div class="input-container --no-break --color-container">
+                <i class="fa fa-fill-drip icon --clickable" onclick="ChangeToDefaultColor();" title="Zmień na domyślny kolor"></i>
+                <input type="color" id="color_input" value="#f7a308" />
+            </div>
+            <textarea id="fight_organizer_input_notes" class="textarea_notes" placeholder="Notatki"></textarea>
+            <button onclick="AddFightEntity();">Dodaj &plus;</button>
+        </div>
+
+        <!-- ====================================================================================================== -->
+
+        <div class="fight_entities" id="fight_entities">
+            <div class="fight_entity --hidden" id="fight_entity_template">
+                <div class="fight_entity__name" name="name" contenteditable>Rozbójnik</div>
+                <div id="hit_location_loading_icon" class="loading_animation--small" name="loading_icon"></div>
+                <div class="input-container --no-break">
+                    <i class="fas fa-fist-raised icon fight_entity_icon"></i>
+                    <input type="number" name="ww" class="icon_input fight_entity__attribute" placeholder="WW">
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-eye icon fight_entity_icon"></i>
+                    <input type="number" name="us" class="icon_input fight_entity__attribute" placeholder="US">
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-weight-hanging	icon fight_entity_icon"></i>
+                    <input type="number" name="k" class="icon_input fight_entity__attribute" placeholder="K">
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-shield-alt icon fight_entity_icon"></i>
+                    <input type="number" name="odp" class="icon_input fight_entity__attribute" placeholder="Odp">
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-running icon fight_entity_icon"></i>
+                    <input type="number" name="zr" class="icon_input fight_entity__attribute" placeholder="Zr">
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-brain icon fight_entity_icon"></i>
+                    <input type="number" name="int" class="icon_input fight_entity__attribute" placeholder="Int">
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-angry icon fight_entity_icon"></i>
+                    <input type="number" name="sw" class="icon_input fight_entity__attribute" placeholder="SW">
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-comments icon fight_entity_icon"></i>
+                    <input type="number" name="ogd" class="icon_input fight_entity__attribute" placeholder="Ogd">
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-heart icon fight_entity_icon"></i>
+                    <input type="number" name="hp" class="icon_input fight_entity__attribute" placeholder="Żyw">
+                </div>
+                <div class="input-container">
+                    <i class="fab fa-first-order icon fight_entity_icon --gold-font"></i>
+                    <input type="number" name="initiative" class="icon_input fight_entity__attribute" placeholder="Inicjatywa">
+                </div>
+                <div class="input-container --no-break">
+                    <i class="fa fa-plus icon"></i>
+                    <select id="fight_organizer_input_dmg" name="dmg" class="icon_input fight_entity__attribute">
+                        <option value="-4">S-4</option>
+                        <option value="-3">S-3</option>
+                        <option value="-2">S-2</option>
+                        <option value="-1">S-1</option>
+                        <option value="0" selected>S</option>
+                        <option value="+1">S+1</option>
+                        <option value="+2">S+2</option>
+                        <option value="+3">S+3</option>
+                        <option value="+4">S+4</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-skull-crossbones icon fight_entity_icon"></i>
+                    <button class="icon_input fight_entity__attribute" name="attack" >Atak</button>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-running icon fight_entity_icon"></i>
+                    <button class="icon_input fight_entity__attribute" name="dodge">Unik</button>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-user-shield icon fight_entity_icon"></i>
+                    <button class="icon_input fight_entity__attribute" name="parry">Parowanie</button>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-crosshairs icon fight_entity_icon"></i>
+                    <button class="icon_input fight_entity__attribute" name="shoot">Strzał</button>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-user-minus icon fight_entity_icon"></i>
+                    <button class="icon_input fight_entity__attribute" name="harm">Zrań</button>
+                </div>
+                <div class="input-container kill_button_parent">
+                    <i class="fas fa-skull icon fight_entity_icon --red-background" name="kill_icon"></i>
+                    <button class="icon_input fight_entity__attribute" name="kill">Zabij postać</button>
+                </div>
+                <div class="input-container remove_button_parent">
+                    <i class="fas fa-trash icon fight_entity_icon --red-background"></i>
+                    <button class="icon_input fight_entity__attribute" name="remove">Usuń postać</button>
+                </div>
+                <textarea placeholder="Notatki" name="notes" class="fight_entity__attribute"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Warhammer RPG easer</p>
+        <p>Autor: Mateusz Moczydłowski, mmoczydlowski4@gmail.com</p>
+        <p>Prawdziwe liczby losowe generowane przez <a href="https://www.random.org" target="_blank">RANDOM.ORG</a></p>
+    </div>
+
+    <div class="floating_menu">
+        <h3>Ustawienia</h3>
+            <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="delete_entity_confirm" checked>
+            <h4 class="--no-break">Pytaj o potwierdzenie przy usuwaniu postaci</h4>
+            <br><br>
+            <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="modifier_prompt" checked>
+            <h4 class="--no-break">Pytaj o modyfikator przy rzutach postaci</h4>
+            <br><br>
+            <input type="color" class="--small" onchange="SettingsUpdateCheck(this);" id="default_color" value="#f7a308" />
+            <h4 class="--no-break">Wybierz domyślny kolor</h4>
+    </div>
+
+    <script src="./FightEntity.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>

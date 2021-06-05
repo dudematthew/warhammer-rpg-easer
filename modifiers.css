@@ -1,0 +1,79 @@
+.--no-break {
+    display: inline;
+}
+
+.--red-background {
+    background-color: darkred;
+}
+
+.--gold-font {
+    color: gold;
+}
+
+.--fix-position {
+    position: fixed;
+}
+
+.--hidden {
+    display: none;
+}
+
+.--color-container {
+    height: 64px;
+    display: flex;
+}
+
+.--color-container .icon {
+    line-height: 60px;
+    font-size: 25px;
+}
+
+
+.--killed {
+    background: url("./img/skull.png"), rgba(139, 0, 0, 0.7);
+    background-repeat: no-repeat;
+    background-position: 99%;
+    background-size: auto 80%;
+    height: auto;
+}
+
+.--killed textarea {
+    width: 50%;
+    height: auto;
+}
+
+.--killed .input-container {
+    display: none;
+}
+
+.--killed .fight_entity__name {
+    display: inline-block;
+    width: 25%;
+    float: left;
+}
+
+.--killed .kill_button_parent,
+.--killed .remove_button_parent {
+    display: inline-block;
+    width: auto;
+    float: left;
+}
+
+.--killed .kill_button_parent button {
+    display: inline;
+}
+
+.--killed .kill_button_parent .icon {
+    display: inline
+}
+
+input[type="color"].--small {
+	-webkit-appearance: none;
+	width: 20px;
+    height: 20px;
+}
+
+input[type="color"].--small::-webkit-color-swatch-wrapper {
+    padding: 0;
+    height: 8px;
+}

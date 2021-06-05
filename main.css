@@ -1,0 +1,309 @@
+@font-face {
+    font-family: 'caslonantique';
+    src: url('./fonts/caslonantique-bold-demo.html');
+  }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: caslonantique;
+}
+
+body {
+    width: 100%;
+    min-height: 100%;
+    font-size: 1vw;
+    background-image: linear-gradient(rgb(243, 211, 163),
+            rgba(243, 211, 163, 0.616)), url("./img/background.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+    background-position: 50%;
+}
+
+h1 {
+    font-size: 3vw;
+}
+
+h2 {
+    font-size: 2.5vw;
+}
+
+h3 {
+    margin: 10px 0;
+    font-size: 2vw
+}
+
+P {
+    font-size: 1.5vw;
+    margin-top: 5px;
+}
+
+button,
+input[type="button"] {
+    min-width: 45px;
+    height: 45px;
+    padding: 10px;
+    font-size: 1vw;
+    margin: 10px 0;
+}
+
+input,
+select {
+    padding: 5px;
+}
+
+select:invalid {
+    color: gray;
+}
+
+textarea {
+    padding: 5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+
+a:hover,
+.--clickable:hover {
+    cursor: pointer;
+}
+
+.main_screen_box {
+    padding: 20px;
+    width: 100%;
+}
+
+.--no-break {
+    display: inline;
+}
+
+.--red-background {
+    background-color: darkred;
+}
+
+img.icon {
+    width: 3vw;
+    height: 3vw;
+    margin-bottom: -0.5vw;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.separate {
+    width: 90%;
+    height: 5px;
+    margin: 10px 10% 3vw 0;
+    background-color: black;
+}
+
+.separate:nth-child(2n) {
+    margin-top: 3vw;
+    margin-bottom: 3vw;
+}
+
+.working_block {
+    width: 30%;
+    float: left;
+    min-height: 300px;
+    border: 2px solid black;
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+
+.working_block:nth-of-type(3n-2) {
+    border-right: none;
+}
+
+.working_block:nth-of-type(3n) {
+    border-left: none;
+}
+
+.working_block:last-of-type {
+    border-right: 2px solid black;
+}
+
+.separation_box {
+    width: 50%;
+    float: left;
+    height: auto;;
+    padding: 5px;
+}
+
+.loading_animation {
+    background-image: url("./img/loading.gif");
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+    margin-bottom: -20px;
+}
+
+.loading_animation.loading_animation--small {
+    height: 25px;
+    width: 25px;
+    margin-bottom: -9px;
+    margin-left: -30px;
+}
+
+.output {
+    padding: 5px 30px 5px 5px;
+    margin: 5px;
+    background: whitesmoke;
+    min-height: 100px;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid lightgray;
+    position: relative;
+}
+
+.output .clear_button {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    padding: 0;
+}
+
+/*-----------------------------ICONS-------------*/
+
+/* Style the input container */
+.input-container {
+    /* display: flex; */
+    /* flex: auto; */
+    width: auto;
+    height: auto;
+    margin: 0 10px 10px 0;
+    float: left;
+}
+
+/* Style the form icons */
+.icon {
+    padding: 5px;
+    background: rgb(43, 43, 43);
+    color: white;
+    min-width: 30px;
+    text-align: center;
+}
+
+/* Style the input fields */
+.icon_input {
+    height: 50px;
+}
+
+.input-field:focus {
+    border: 2px solid rgb(228, 142, 13);
+}
+
+textarea.textarea_notes {
+    width: 500px;
+    min-height: 120px;
+    padding: 5px;
+}
+
+/*----------------------------------------icons-------------------*/
+
+.fight_organizer_menu {
+    margin-top: 20px;
+    width: 90%;
+    height: auto;
+    border: 1px dotted black;
+    padding: 20px;
+}
+
+.fight_organizer_menu input,
+.fight_organizer_menu button {
+    height: 10px;
+    width: auto;
+    padding: 10px;
+    font-size: 1vw;
+    line-height: 100%;
+    margin: 0;
+}
+
+.fight_organizer_menu button {
+    height: 30px;
+    width: 190px;
+    padding: 0px 2px;
+    margin: 10px;
+    background-color: lightgreen;
+}
+
+.fight_entity {
+    width: 90%;
+    height: auto;
+    background-color: rgba(243, 188, 85, 0.541);
+    padding: 10px;
+    border-top: 2px solid black;
+}
+
+.fight_entity_icon {
+    height: 30px;
+    line-height: 25px;
+}
+
+.fight_entity__name {
+    font-size: 2vw;
+    font-weight: bold;
+    margin-bottom: 10px;
+    width: 50%;
+}
+
+.fight_entity__attribute {
+    width: 100px;
+    height: 30px;
+}
+
+textarea.fight_entity__attribute {
+    height: auto;
+    width: 100%;
+    height: 120px;
+}
+
+button.fight_entity__attribute {
+    height: 30px;
+    width: auto;
+    margin: 0;
+    padding: 5px;
+}
+
+.floating_menu {
+    position: fixed;
+    width: 10%;
+    height: 300px;
+    background-color: rgba(209, 166, 49, 0.473);
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+}
+
+.floating_menu h3 {
+    font-size: 1.5vw;
+}
+
+.footer {
+    margin-top: 40px;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+}
+
+input[type="color"] {
+	-webkit-appearance: none;
+	width: 64px;
+    height: 64px;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    height: 43px;
+}

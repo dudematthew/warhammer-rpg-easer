@@ -1,0 +1,67 @@
+[
+    {
+        "id": "default",
+        "name": "Stworzenie dwunożne",
+        "values": [
+            {"from": 1, "to": 15, "effect": "Głowa"},
+            {"from": 16, "to": 35, "effect": "Prawe ramię"},
+            {"from": 36, "to": 55, "effect": "Lewe ramię"},
+            {"from": 56, "to": 80, "effect": "Korpus"},
+            {"from": 81, "to": 90, "effect": "Prawa noga"},
+            {"from": 90, "to": 100, "effect": "Lewa noga"}
+        ]
+    },
+    {
+        "id": "bacchus",
+        "name": "Bacchus Groll",
+        "values": [
+            {"from": 1, "to": 7, "effect": "Głowa"},
+            {"from": 8, "to": 31, "effect": "Prawe ramię"},
+            {"from": 32, "to": 55, "effect": "Lewe ramię"},
+            {"from": 56, "to": 71, "effect": "Plecy"},
+            {"from": 72, "to": 82, "effect": "Klatka piersiowa"},
+            {"from": 83, "to": 91, "effect": "Prawa noga"},
+            {"from": 92, "to": 100, "effect": "Lewa noga"}
+        ]
+    },
+    {
+        "id": "humanoid_quadrupeds",
+        "name": "Stworzenie czworonożne humanoidalne",
+        "values": [
+            {"from": 1, "to": 10, "effect": "Głowa"},
+            {"from": 11, "to": 20, "effect": "Prawe ramię"},
+            {"from": 21, "to": 30, "effect": "Lewe ramię"},
+            {"from": 31, "to": 60, "effect": "Korpus"},
+            {"from": 61, "to": 70, "effect": "Prawa przednia noga"},
+            {"from": 71, "to": 80, "effect": "Lewa przednia noga"},
+            {"from": 81, "to": 90, "effect": "Prawa tylna noga"},
+            {"from": 91, "to": 100, "effect": "Lewa tylna noga"}
+        ]
+    },
+    {
+        "id": "doublepeds_flying_creature",
+        "name": "Stworzenie dwunożne skrzydlate",
+        "values": [
+            {"from": 1, "to": 15, "effect": "Głowa"},
+            {"from": 16, "to": 35, "effect": "Prawe skrzydło"},
+            {"from": 36, "to": 55, "effect": "Lewe skrzydło"},
+            {"from": 56, "to": 80, "effect": "Korpus"},
+            {"from": 81, "to": 90, "effect": "Prawa noga"},
+            {"from": 91, "to": 100, "effect": "Lewa noga"}
+        ]
+    },
+    {
+        "id": "quadrupeds_flying_creature",
+        "name": "Stworzenie czworonożne skrzydlate",
+        "values": [
+            {"from": 1, "to": 10, "effect": "Głowa"},
+            {"from": 11, "to": 20, "effect": "Prawe skrzydło"},
+            {"from": 21, "to": 30, "effect": "Lewe skrzydło"},
+            {"from": 31, "to": 60, "effect": "Korpus"},
+            {"from": 61, "to": 70, "effect": "Prawa przednia noga"},
+            {"from": 71, "to": 80, "effect": "Lewa przednia noga"},
+            {"from": 81, "to": 90, "effect": "Prawa tylna noga"},
+            {"from": 91, "to": 100, "effect": "Lewa tylna noga"}
+        ]
+    }
+]

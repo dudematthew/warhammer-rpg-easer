@@ -1,0 +1,48 @@
+[
+    [
+        "Cios sprawia, że przeciwnik na chwilę traci orientację. W swojej następnej turze może wykonać tylko jedną akcję (nie może wykonywać akcji podwójnych)",
+        "Po silnym ciosie przeciwnik chwieje się na nogach. Jest całkowicie zamroczony. Przez jedną rundę nie może wykonywać żadnych akcji.",
+        "Cios zdziera skórę z głowy przeciwnika. Krew zalewa mu oczy, częściowo go oślepiając. Do chwili zatamowania krwawienia ranny otrzymuje modyfikator -10 do WW",
+        "Cios wgniata hełm przeciwnika. Od tej chwili osłona głowy zmniejsza się o 1 Punkt Zbroi. Naprawa hełmu wymaga udanego testu rzemiosła (płatnerstwo). Jeśli postać nie nosi zbroi lub gdy MG stosuje uproszczone zasady dotyczące pancerzy, to po silnym ciosie przeciwnik chwieje się na nogach. Jest całkowicie zamroczony. Przez jedną rundę nie może wykonywać żadnych akcji.",
+        "Trafiony przeciwnik pada na ziemię, oszołomiony potężnym ciosem. Przez jedną rundę wszystkie testy wykonuje z modyfikatorem -30. Postać musi wykonać akcję 'wstawanie', żeby podnieś się z ziemi",
+        "Trafiony w czoło przeciwnik potyka się i przyklęka. Przez 1k10 rund jest oszołomiony.",
+        "Trafiony w skroń przeciwnik pada na ziemię. Traci przytomność na 1k10 minut. Przy następnych trafieniach krytycznych stsouje się zasadę Nagłej Śmierci.",
+        "Cios zamienia twarz przeciwnika w krwawą miazgę. Nieszczęśnik pada na ziemię, wijąc się z bólu i zakrywając twarz rękami. Do chwili otrzymania pomocy medycznej jest traktowany jako bezbronny. Na początku każdej swojej tury musi wykonać rzut procentowy. Wynik równy lub niższy od 20 oznacza, że raniona postać umiera z  wykrwawienia. Jeśli przeżyje walkę, musi wykonać test Odporności. Nieudany test oznacza utratę oka.",
+        "Precyzyjny cios ścina przeciwnikowi głowę. Bezgłowy korpus przez chwilę stoi nieruchomo, po czym upada na ziemię. Atakujący jest zbryzgany krwią przeciwnika."
+    ],
+    [
+        "Siła uderzenia odbiera przeciwnikowi dech. Przez jedną rundę otrzymuje modyfikator -20 do wszystkich testów i ataków.",
+        "Cios trafia przeciwnika w krocze. Oszołomiona bólem postać przez całą rundę nie może wykonywać żadnych akcji.",
+        "Siła ataku łamie przeciwnikowi żebra. Do chwili udzielenia mu pomocy medycznej otrzymuje -10 do WW",
+        "Cios przecina zbroję przeciwnika, przy okazji dotkliwie raniąc go w pierś. Od tej chwili osłona korpusu zmniejsza się o 1 Punkt zbroi. Naprawa pancerza wymaga udanego testu rzemiosła (płatnerstwo). Jeśli postać nie nosi zbroi lub gdy MG stosuje uproszczone zasady dotyczące pancerzy, to cios trafia przeciwnika w krocze. Oszołomiona bólem postać przez całą rundę nie może wykonywać żadnych akcji.",
+        "Siła uderzenia sprawia, że przeciwnik pada na ziemię, nie mogąc złapać tchu. Przez jedną rundę wszystkie testy wykonuje z modyfikatorem -30. Musi wykonać akcję 'wstawanie', żeby podnieść się z ziemi",
+        "Przeciwnik niemal przyklęka, porażony siłą ciosu. Przez 1k10 rund jest ogłuszony.",
+        "Pozornie niegroźny cios prześlizguje się między żebrami przecwinika, uszkadzając narządy i powodując wewnętrzny krwotok. Po chwili postać pada na ziemię. Jeśli nie otrzyma pomocy medycznej może umrzeć z wykrwawienia. Na początku każdej swojej tury musi wykonać rzut procentowy. Wynik równy lub niższy od 20 oznacza, że raniona postać umiera. Przy następnych trafieniach krytycznych stosuje się zasadę Nagłej Śmierci.",
+        "Uderzenie łamie kręgosłup przeciwnika jak zapałkę. Postać pada na ziemię, znieruchomiała. Do chwili otrzymania pomocy medycznej, nie może nic robić i jest traktowana jako bezbronna. Przy następnych trafieniach krytycznych stosuje się zasadę Nagłej Śmierci. Jeśli postać przeżyje walkę, musi wykonać test Odporności. Nieudany test oznacza paraliż od pasa w dół.",
+        "Brutalny cios rozcina brzuch przeciwnika, który umiera po kilku sekundach straszliwych męczarni.",
+        "Cios niemalże patroszy przeciwnika, który osuwa się na kolana, a potem pada twarzą w kałużę krwi i własnych wnętrzności. Śmierć jest natychmiastowa."
+    ],
+    [
+        "Przeciwnik upuszcza trzymane w zranionej dłoni przedmioty. Jeżeli trzymał w niej tarczę, także ją wypuszcza, chyba że była przypięta do przedramienia.",
+        "Ręka przeciwnika drętwieje od ciosu. Pozostaje bezwładna przez jedną rundę.",
+        "Przeciwni otrzymuje bolesny cios w rękę. Do chwili otrzymania pomocy medycznej dłoń pozostaje bezwładna. Przeciwnik upuszcza trzymane w dłoni przedmioty, a także tarczę, chyba że była przypięta do przedramienia.",
+        "Element zbroi chroniący rękę przeciwnika zostaje uszkodzony. Od tej chwili osłona ręki zmniejsza się o 1 Punkt Zbroi Naprawa pancerza wymaga udanego testu rzemiosła (płatnerstwo). Jeśli postać nie nosi zbroi lub gdy MG stosuje uproszczone zasady dotyczące pancerzy, to Ręka przeciwnika drętwieje od ciosu. Pozostaje bezwładna przez jedną rundę.",
+        "Cios trafia w rękę przeciwnika, rozcinając ją aż do kości. Ramię pozostaje bezwładne do chwili udzielenia pomocy medycznej. Przeciwnik upuszcza trzymane w dłoni przedmioty, a także tarczę, chyba że była przypięta do przedramienia.",
+        "Cios łamie rękę przeciwnika, który upuszcza trzymane w dłoni przedmioty, a także tarczę, chyba że była przypięta do przedramienia. Jeśli postać nie otrzyma pomocy medycznej, może umrzeć z wykrwawienia. Na początku każdej swojej tury musi wykonać rzut procentowy. Wynik równy lub niższy od 20 oznacza, że raniona postać umiera. Przy następnych trafieniach krytycznych stosuje się zasadę Nagłej Śmierci. Jeśli postać przeżyje walkę, musi wykonać test Odporności. NIeudany test oznacza, że konieczna jest amputacja dłoni.",
+        "Cios miażdży rękę przeciwnika, który wypuszcza wszystkie trzymane w niej przedmioty (oprócz przypiętej tarczy). Krew tryska strumieniem z poszarpanej rany. Jeśli postać nie otrzyma pomocy medycznej, może umrzećz wykrwawienia. Na początku każdej swojej tury musi wykonać rzut procentowy. Wynik równy lub niższy od 20 oznacza, że raniona postać umiera. Przy następnych trafieniach krytycznych stosuje się zasadę Nagłej Śmierci. Jeśli postać przeżyje walkę, musi wykonać test Odporności. Nieudany test oznacza, że konieczna jest amputacja ręki.",
+        "Cios niemalże odcina rękę przeciwnika. Z rozerwanej tętnicy chlusta krew. Chwilę potem przeciwnik pada na ziemię. Szok spowodowany raną i utrata krwi powodują, żę śmierć jest niemal natychmiastowa.",
+        "Cios odrąbuje rękę przeciwnika, który przez chwilę patrzy ze zdziwieniem na tryskający krwią kikut, a pootem martwy osuwa się na ziemię."
+    ],
+    [
+        "Przeciwnik potyka się i traci równowagę. W swojej następnej turze może wykonać tylko jedną akcję (nie może wykonywać akcji podwójnych).",
+        "Po ciosie przeciwnik traci czucie w nodze. Przez jedną rundę nie może wykonywać uników. W tym czasie otrzymuje modyfikator -20 do zręczności, a jego Szybkość spada do 1.",
+        "Cios poważnie rani nogę przeciwnika, przecinając ścięgna lub łamiąc kość. Jego Szybkość spada do 1. Postać nie może wykonywać uników i dodatkowo otrzymuje -20 do Zręczności.",
+        "Podstępny cios od dołu przecina pancerz przeciwnika. Od tej chwili osłona nogi zmniejsza się o 1 Punkt Zbroi. Naprawa pancerza wymaga udanego testu rzemiosła (płatnerstwo). Jeśli postać nie nosi zbroi lub gdy MG stosuje uproszczone zasady dotyczące pancerzy, to po ciosie przeciwnik traci czucie w nodze. Przez jedną rundę nie może wykonywać uników. W tym czasie otrzymuje modyfikator -20 do zręczności, a jego Szybkość spada do 1.",
+        "Silny cio podcina przeciwnika, który oszołomiony pada na ziemię. Przez jedną rundę wszystkie testy wykonuje z modyfikatorem -30. Musi wykonać akcję 'wstawanie', żeby podnieść się z ziemi.",
+        "Cios rozrywa mięśnie i łamie kości w nodze przeciwnika. Postać jest traktowana jako brzbronna. Jeśli nie otrzyma pomocy medycznej, może umrzeć z wykrwawienia. Na początku każdej swojej tury musi wykonać rzut procentowy. Wynik równy lub niższy od 20 oznacza, że raniona postać umiera. Przy następnych trafieniach krytycznych stosuje się zasadę Nagłej Śmierci.",
+        "Po straszliwym ciosie noga przeciwnika zamienia się w krwawy ochłap rozszarpanych mięśni i strzaskanych kości. Przeciwnik pada na ziemię wyjąc z bólu. Jeśli nie otrzyma pomocy medycznej, może umrzeć z wykrwawienia. Na początku każdej swojej tury musi wykonać rzut procentowy. Wynik równy lub niższy od 20 oznacza, że raniona postać umiera. Przy następnych trafieniach krytycznych stosuje się zasadę Nagłej Śmierci. Jeśli postać przeżyje walkę, musi wykonać test Odporności. Nieudany test oznacza, że konieczna jest amputacja stopy.",
+        "Silny cios zmienia nogę przeciwnika w krwawą miazgę poszarpanych mięśni i połamanych, odsłoniętych kości. Do chwili otrzymania pomocy medycznej nie może nic robić i jest uznawana za bezbronną. Przy następnych trafieniach krytycznych stosuje się zasadę Nagłej Śmierci. Jeśli postać przeżyje walkę, musi wykonać test Odporności. Nieudany test oznacza, że konieczna jest amputacja nogi.",
+        "Precyzyjnie wymierzony cios przecina tętnicę udową przeciwnika, który pada na ziemię, obficie krwawiąc. Umiera po kilku chwilach.",
+        "Cios gładko przecina nogę przeciwnika, który przewraca się, obryzgując wszsystko dookoła krwią chlustającą z kikuta. Umiera po kilku chwilach straszliwych męczarni."
+    ]
+]
