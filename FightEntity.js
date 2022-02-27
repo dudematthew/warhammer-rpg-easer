@@ -66,6 +66,7 @@ class FightEntity {
             }
         });
 
+
         for (let element in this.NodeElements) {
                 if (element.type == "number")
                     element.addEventListener("change", function () {
@@ -89,6 +90,10 @@ class FightEntity {
             ThisVariable.rollForEntityAction(ThisVariable, ThisVariable.NodeElements.usInput, "trafiła!", "nie trafiła...");
         });
 
+        this.getChildElementByName("hp").addEventListener("change", () => {
+            ThisVariable.correctHp();
+        });
+
         this.getChildElementByName("harm").addEventListener("click", function () {
             let damage = parseInt(window.prompt("Podaj ilość obrażeń"));
             let protection = parseInt(window.prompt("Podaj ochronę postaci " + ThisVariable.NodeElements.nameInput.innerText + "\nTa postać posiada " + ThisVariable.roundToSingle(parseInt(ThisVariable.NodeElements.odpInput.value)) + " odporności"));
@@ -106,12 +111,17 @@ class FightEntity {
 
             let currentHpElem = ThisVariable.NodeElements.hpInput;
 
-            ThisVariable.NodeElements.hpInput.value = parseInt(currentHpElem.value) - finalDamage;
-
+            currentHpElem.value = parseInt(currentHpElem.value) - finalDamage;   
+                
             let summaryText = "Postać " + ThisVariable.NodeElements.nameInput.innerText + " otrzymała " + finalDamage + " obrażeń!";
+                
+            // Make sure that the effect is not bigger than +10
+            let possibleEffect = (parseInt(currentHpElem.value) < -10) ? -10 : parseInt(currentHpElem.value);
 
             if (parseInt(currentHpElem.value) < 0)
-                summaryText += "\nWchodzi więc na tabelkę krytyczną! Rzuć na efekt! (+" + parseInt(currentHpElem.value) * -1 + ")";
+                summaryText += "\nWchodzi więc na tabelkę krytyczną! Rzuć na efekt! (+" + possibleEffect * -1 + ")";
+
+            ThisVariable.correctHp();
 
             window.alert(summaryText);
         });
@@ -146,6 +156,14 @@ class FightEntity {
         });
 
         this.ENTITY_ELEM.style.backgroundColor = this.hexToRgbA(this.NodeElements.colorInput.value);
+    }
+
+    /**
+     * Correct HP if lower than 0
+     */
+    correctHp () {
+        let hpElem = this.NodeElements.hpInput;
+        hpElem.value = (hpElem.value < 0) ? 0 : hpElem.value;
     }
  
     getChildElementByName (name) {
@@ -185,7 +203,7 @@ class FightEntity {
         let modifier = 0;
         
         if (MODIFIER_PROMPT_OPTION)
-            parseInt(window.prompt("Podaj modyfikator"));
+            modifier = parseInt(window.prompt("Podaj modyfikator"));
 
         if (isNaN(modifier))
             modifier = 0;

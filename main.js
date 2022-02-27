@@ -290,7 +290,9 @@ function ShowCriticalEffect(type) {
     let plusNumberElem = document.getElementById("critical_effect_plus_number");
     let plusNumber = plusNumberElem.options[plusNumberElem.selectedIndex].value;
 
-    console.log(hitLocation, plusNumber, input);
+    console.log("Hit location: ", hitLocation);
+    console.log("Plus number: ", plusNumber);
+    console.log("Input: ", input);
 
     if (hitLocation == "disabled") {
         window.alert("Proszę podać lokację trafienia.");
@@ -392,7 +394,7 @@ function GetCriticalHitNumber(hitNumber, plusNumber) {
 }
 
 function GetCriticalEffect(criticalHitNumber = 1, hitLocation = 0) {
-    return effectMatrix[hitLocation][criticalHitNumber - 1];
+    return effectMatrix[parseInt(hitLocation)][parseInt(criticalHitNumber) - 1];
 }
 
 function ChangeToDefaultColor () {
@@ -452,11 +454,12 @@ function RandomHitLocationInput() {
 
 function RandomInitiativeInput () {
     let selectElem = fight_organizer_input_elements.initiative;
+    let agility = fight_organizer_input_elements.zr.value;
 
-    let RandomNumber = GetTrueRandom(1, 100, document.getElementById("initiative_loading_animation"));
+    let RandomNumber = GetTrueRandom(1, 10, document.getElementById("initiative_loading_animation"));
 
     RandomNumber.then(function (randomNumer) {
-        selectElem.value = randomNumer;
+        selectElem.value = randomNumer + parseInt(agility);
     }).catch(function (error) {
         window.alert("Wystąpił błąd połączenia");
     });
