@@ -23,17 +23,37 @@
         return $returnTemplates;
     }
 
+    function saveTemplates ($templates) {
+        $jsonToSave = json_encode(sortTemplateIds($templates), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    
+        file_put_contents("./data/fightEntitiesTemplates.json", $jsonToSave);
+    }
+
     $id = $_GET["remove"] ?? null;
     if ($id !== null) {
         $templates = getTemplatesWithoutId($templates, $id);
         $templates = sortTemplateIds($templates);
     }
-    
-    
-    $jsonToSave = json_encode(sortTemplateIds($templates), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    
-    file_put_contents("./data/fightEntitiesTemplates.json", $jsonToSave);
 
+    $add = $_GET["add"] ?? null;
+    if ($add !== null) {
+        $template = (array)json_decode($add);
+
+        $template["id"] = 0;
+
+        $templates[] = $template;
+
+        $templates = sortTemplateIds($templates);
+
+        saveTemplates($templates);
+
+        print json_encode($template);
+
+        exit();
+    }
+    
+    saveTemplates($templates);
+    
     if ($id !== null)
         header("location: ./editor.php");
 
@@ -119,7 +139,7 @@
                     <i class="fa fa-plus icon"></i>
                     <input type="number" name="dmg" class="icon_input fight_entity__attribute" value="<?php echo $template["dmg"] ?>" placeholder="S" disabled>
                 </div>
-                <form action="./editor.php" method="get" class="input-container remove_button_parent">
+                <form action="./editor.php" onsubmit="return confirm('Na pewno chcesz usunąć wzór <?php print $template['name'] ?>?')"  method="get" class="input-container remove_button_parent">
                     <input type="hidden" name="remove" value="<?php print $template["id"] ?>">
                     <i class="fas fa-trash icon fight_entity_icon --red-background"></i>
                     <button type="submit" class="icon_input fight_entity__attribute">Usuń wzór</button>

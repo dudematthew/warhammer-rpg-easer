@@ -186,8 +186,8 @@ class FightEntity {
                     }
                 }
 
-                xhr.open("get", "./editor.php", true);
-                xhr.send('add='+JSON.stringify(data));
+                xhr.open("get", "./editor.php?add="+JSON.stringify(data), true);
+                xhr.send();
             }
         });
 
