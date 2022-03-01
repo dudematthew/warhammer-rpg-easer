@@ -54,8 +54,10 @@
     
     saveTemplates($templates);
     
-    if ($id !== null)
+    if ($id !== null) {
         header("location: ./editor.php");
+        exit();
+    }
 
 ?>
 
