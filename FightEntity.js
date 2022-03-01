@@ -142,6 +142,55 @@ class FightEntity {
             }
         });
 
+        this.getChildElementByName("save").addEventListener("click", function () {
+            let userAgree = window.confirm("Czy na pewno chcesz zapisać tą postać?");
+
+            if (userAgree) {
+                let data = {
+                    name: ThisVariable.NodeElements.nameInput.innerText,
+                    ww: ThisVariable.NodeElements.wwInput.value,
+                    us: ThisVariable.NodeElements.usInput.value,
+                    k: ThisVariable.NodeElements.kInput.value,
+                    odp: ThisVariable.NodeElements.odpInput.value,
+                    zr: ThisVariable.NodeElements.zrInput.value,
+                    int: ThisVariable.NodeElements.intInput.value,
+                    sw: ThisVariable.NodeElements.swInput.value,
+                    ogd: ThisVariable.NodeElements.ogdInput.value,
+                    atk: ThisVariable.NodeElements.hpInput.value,
+                    hp: ThisVariable.NodeElements.initiativeInput.value ,
+                    dmg: ThisVariable.NodeElements.dmgInput.value,
+                    notes: ThisVariable.NodeElements.notesInput.value
+                };
+
+                const xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status == 200) {
+                            console.log("sucess:");
+                            console.log(xhr.responseText);
+                            // if(numbersQuantity > 1) {
+                            //     let xhrResponseArray = xhr.responseText.toString().split("\n");
+                            //     xhrResponseArray.pop();
+                            //     resolve(xhrResponseArray); 
+                            // }
+                            // else
+                            //     resolve(parseInt(xhr.responseText));
+                        } 
+                        else if (xhr.status == 404) {
+                            console.error("Nie można otrzymać połączenia z plikiem editor.php");
+                        } 
+                        else
+                            console.error("Wystąpił błąd połączenia: " + xhr.HEADERS_RECEIVED)
+                    }
+                }
+
+                xhr.open("get", "./editor.php", true);
+                xhr.send('add='+JSON.stringify(data));
+            }
+        });
+
         this.getChildElementByName("remove").addEventListener("click", function () {
             
             let userAgree = true;
