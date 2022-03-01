@@ -6,6 +6,10 @@
     background-color: darkred;
 }
 
+.--green-background {
+    background-color: green;
+}
+
 .--gold-font {
     color: gold;
 }
