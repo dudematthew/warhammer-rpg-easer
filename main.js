@@ -1,4 +1,5 @@
 let DELETE_ENTITY_CONFIRM_OPTION = true;
+let MULTIPLE_ENTITY_INITIATIVE_DRAW_OPTION = true;
 let MODIFIER_PROMPT_OPTION = true;
 let DEFAULT_ENTITY_COLOR = "#f7a308";
 
@@ -27,6 +28,8 @@ dataFileNames.forEach(fileName => {
     xmlhttp.send();
 });
 
+let randomizer = new Randomizer(200);
+
 let chaosMutations = DATA[0];
 
 let drunkEffects = DATA[1];
@@ -42,7 +45,6 @@ let movementValues = DATA[5];
 let hitLocations = DATA[6];
 
 console.log(hitLocations);
-console.log(213123123123);
 
 //-----------------------------------------------------
 
@@ -67,6 +69,17 @@ let fight_organizer_input_elements = {
     color: document.getElementById("color_input")
 }
 
+let baseStats = [
+    "ww",
+    "us",
+    "k",
+    "odp",
+    "zr",
+    "int",
+    "sw",
+    "ogd",
+];
+
 // Fill select with fight_entities_templates names
 fightEntitiesTemplates.forEach(function (object) {
     let option = document.createElement("option");
@@ -86,7 +99,9 @@ hitLocations.forEach(function (object) {
 })
 
 
-document.getElementById("fight_entity_template_select").addEventListener("change", function () {
+document.getElementById("fight_entity_template_select").addEventListener("change", populateTemplate);
+
+function populateTemplate () {
     let selectNumber = select_template_elem.value;
     
     let fightEntity = fightEntitiesTemplates[selectNumber];
@@ -103,8 +118,7 @@ document.getElementById("fight_entity_template_select").addEventListener("change
     fight_organizer_input_elements.hp.value = fightEntity.hp;
     fight_organizer_input_elements.dmg.value = fightEntity.dmg;
     fight_organizer_input_elements.notes.value = fightEntity.notes;
-    
-});
+}
 
 function getEffectFromObjectByRange (arrayOfObjects, number) {
 
@@ -157,6 +171,13 @@ function SettingsUpdateCheck (checkboxElem) {
         case "default_color":
             DEFAULT_ENTITY_COLOR = document.getElementById("default_color").value;
             console.log(DEFAULT_ENTITY_COLOR);
+        break;
+
+        case "multiple_entities_initiative_draw":
+            if (checkboxElem.checked)
+                MULTIPLE_ENTITY_INITIATIVE_DRAW_OPTION = true;
+            else
+                MULTIPLE_ENTITY_INITIATIVE_DRAW_OPTION = false;
         break;
     }
 }
@@ -322,43 +343,32 @@ function ShowCriticalEffect(type) {
     }
 }
 
-function GetTrueRandom(from = 0, to = 0, loadingIconElem = document.createElement("div"), numbersQuantity = 1) {
+async function GetTrueRandom(from = 0, to = 0, loadingIconElem = document.createElement("div"), numbersQuantity = 1) {
+
+    let randomReturn;
 
     if (!Number.isInteger(parseInt(from)) || !Number.isInteger(parseInt(to))) {
         console.log("error!");
         return 0;
     }
+    
+    // Start loading animation
+    loadingIconElem.classList.add("loading_animation");
 
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
+    if (numbersQuantity <= 1)
+        randomReturn = await randomizer.getRandomNumber(from, to);
 
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState == 4) {
-                loadingIconElem.classList.remove("loading_animation");
-
-                if (xhr.status == 200) {
-                    console.log(xhr.responseText);
-                    if(numbersQuantity > 1) {
-                        let xhrResponseArray = xhr.responseText.toString().split("\n");
-                        xhrResponseArray.pop();
-                        resolve(xhrResponseArray); 
-                    }
-                    else
-                        resolve(parseInt(xhr.responseText));
-                } 
-                else if (xhr.status == 404) {
-                    reject("Nie znaleziono strony RANDOM.ORG");
-                } 
-                else
-                    reject("Wystąpił błąd połączenia: " + xhr.HEADERS_RECEIVED)
-            } else {
-                loadingIconElem.classList.add("loading_animation");
-            }
+    else {
+        randomReturn = [];
+        for (let i = 0; i < numbersQuantity; i++) {
+            randomReturn.push(await randomizer.getRandomNumber(from, to));
         }
+    }
 
-        xhr.open("get", "https://www.random.org/integers/?num=" + numbersQuantity +"&min=" + from + "&max=" + to + "&col=1&base=10&format=plain&rnd=new", true);
-        xhr.send();
-    });
+    // End loading animation
+    loadingIconElem.classList.remove("loading_animation");
+
+    return parseInt(randomReturn);
 }
 
 function GetHitLocation(locationNumber = 0, entityType = "default") {
@@ -405,6 +415,8 @@ function RollK100 () {
     let outputElem = document.getElementById("roll_k100_output");
 
     let RandomNumber = GetTrueRandom(1, 100, document.getElementById("roll_k100_loading_icon"));
+
+    console.log(RandomNumber);
 
     RandomNumber.then(function (randomNumber) {
         outputElem.innerHTML += "• " + randomNumber + "<br>";
@@ -471,6 +483,53 @@ function AddFightEntity () {
    RelocateFightEntities();
 }
 
+async function AddMultipleFightEntity () {
+    let amountInput = Math.abs(parseInt(window.prompt("Podaj ilość bytów które mają zostać dodane") ?? 0));
+    let randomStatsInput = window.confirm("Czy zmodyfikować losowo statystyki w odchyłach do 10? (OK - tak, ANULUJ - nie)");
+
+    // Create amountInput entities
+    for (let i = 0; i < amountInput; i++) {
+        let fightEntity = new FightEntity(fightEntities.length);
+        let fightEntityNameInput = fightEntity.NodeElements.nameInput;
+
+        // Randomize stats
+        if (randomStatsInput)
+            baseStats.forEach(async stat => {
+                let inputEl = fightEntity.NodeElements[stat + "Input"];
+                inputEl.value = await GetRandomizedStat(parseInt(inputEl.value));
+            });
+            
+        // Draw initiative for each entity
+        if (MULTIPLE_ENTITY_INITIATIVE_DRAW_OPTION)
+            fightEntity.drawInitiative();
+            
+        // Calculate correct name based on all entitites
+        let number = 1;
+        while (EntityNameExist(fightEntityNameInput.innerText + ` ${number}`)) {
+            number++;
+        }
+        fightEntityNameInput.innerText += ` ${number}`;
+
+
+        fightEntities.push(fightEntity);
+    }
+
+
+    RelocateFightEntities();
+}
+
+function EntityNameExist (name = "") {
+    let exist = false;
+
+    fightEntities.forEach(fightEntity => {
+
+        if (fightEntity.NodeElements.nameInput.innerText == name)
+            exist = true;
+    });
+
+    return exist;
+}
+
 // Relocate all fight entities by initiative
 function RelocateFightEntities () {
     
@@ -507,10 +566,20 @@ function RandomizeStat (inputId) {
     console.log(stat, RandomNumber);
 
     RandomNumber.then(function (randomNumer) {
-        statInput.value = randomNumer;
+        statInput.value = randomNumer >= 0 ? randomNumer : 0;
     }).catch(function (error) {
         window.alert("Wystąpił błąd połączenia");
     });
+}
+
+function RandomizeAllStats () {
+    baseStats.forEach(stat => {
+        RandomizeStat("fight_organizer_input_" + stat);
+    });
+}
+
+async function GetRandomizedStat (statValue) {
+    return await GetTrueRandom(statValue - 10, statValue + 10);
 }
     
 // Has to be last line of code - convert to int on inputs change

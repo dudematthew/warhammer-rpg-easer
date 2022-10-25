@@ -238,6 +238,10 @@ textarea.textarea_notes {
     background-color: lightgreen;
 }
 
+.fight_organizer_menu .multibutton {
+    background-color: yellowgreen;
+}
+
 .fight_entity {
     width: 90%;
     height: auto;
@@ -279,7 +283,7 @@ button.fight_entity__attribute {
 .floating_menu {
     position: fixed;
     width: 10%;
-    height: 300px;
+    height: auto;
     background-color: rgba(209, 166, 49, 0.473);
     bottom: 0;
     right: 0;

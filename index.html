@@ -18,7 +18,7 @@
         <a href="./editor.php" target="_blank">
             <img src="./img/logo.png" class="icon" alt="Warhammer" />
         </a>
-        <h1 class="--no-break">Warhammer 2 RPG Easer v1.0</h1>
+        <h1 class="--no-break">Warhammer 2 RPG Easer v1.1</h1>
 
 
         <div class="separate"></div>
@@ -181,7 +181,7 @@
                 <input type="number" class="icon_input" id="fight_organizer_input_ogd" placeholder="Ogd">
             </div>
             <div class="input-container">
-                <i class="fas fa-heart icon --clickable" title="Zmodyfikuj losowo statystykę w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_hp');"></i>
+                <i class="fas fa-heart icon"></i>
                 <input type="number" class="icon_input" id="fight_organizer_input_hp" placeholder="Żyw">
             </div>
             <div class="input-container">
@@ -221,10 +221,13 @@
                 </select>
             </div>
             <div class="input-container --no-break">
-                <i class="fa fa-border-style icon"></i>
+                <i class="fa fa-border-style icon --clickable" onclick="populateTemplate();" title="Użyj wzoru"></i>
                 <select class="icon_input fight_entity__attribute" id="fight_entity_template_select">
                     <option value="disabled" disabled selected >Wzór</option>
                 </select>
+            </div>
+            <div class="input-container --no-break">
+                <i class="fas fa-balance-scale-right icon --clickable" onclick="RandomizeAllStats();" title="Zmodyfikuj losowo wszystkie statystyki w odchyłach do 10" onclick="RandomizeStat('fight_organizer_input_k');" style="height: 30px; padding-top: 6px;"></i>
             </div>
             <div class="input-container --no-break --color-container">
                 <i class="fa fa-fill-drip icon --clickable" onclick="ChangeToDefaultColor();" title="Zmień na domyślny kolor"></i>
@@ -232,6 +235,7 @@
             </div>
             <textarea id="fight_organizer_input_notes" class="textarea_notes" placeholder="Notatki"></textarea>
             <button onclick="AddFightEntity();">Dodaj &plus;</button>
+            <button onclick="AddMultipleFightEntity();" class="multibutton">Dodaj Wiele &plus;</button>
         </div>
 
         <!-- ====================================================================================================== -->
@@ -277,7 +281,7 @@
                     <input type="number" name="hp" class="icon_input fight_entity__attribute" placeholder="Żyw">
                 </div>
                 <div class="input-container">
-                    <i class="fab fa-first-order icon fight_entity_icon --gold-font"></i>
+                    <i class="fab fa-first-order icon fight_entity_icon --gold-font --clickable" name="initiativeButton" title="Losuj inicjatywę"></i>
                     <input type="number" name="initiative" class="icon_input fight_entity__attribute" placeholder="Inicjatywa">
                 </div>
                 <div class="input-container --no-break">
@@ -339,6 +343,9 @@
 
     <div class="floating_menu">
         <h3>Ustawienia</h3>
+            <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="multiple_entities_initiative_draw" checked>
+            <h4 class="--no-break">Automatycznie losuj inicjatywę przy dodawaniu wielu jednostek</h4>
+            <br><br>
             <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="delete_entity_confirm" checked>
             <h4 class="--no-break">Pytaj o potwierdzenie przy usuwaniu postaci</h4>
             <br><br>
@@ -349,6 +356,7 @@
             <h4 class="--no-break">Wybierz domyślny kolor</h4>
     </div>
 
+    <script src="./randomizer.js"></script>
     <script src="./FightEntity.js"></script>
     <script src="./main.js"></script>
 </body>

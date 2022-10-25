@@ -74,6 +74,10 @@ class FightEntity {
                     });
         }
 
+        this.getChildElementByName("initiativeButton").addEventListener("click", function () {
+            ThisVariable.drawInitiative();
+        });
+
         this.getChildElementByName("dodge").addEventListener("click", function () {
             ThisVariable.rollForEntityAction(ThisVariable, ThisVariable.NodeElements.zrInput, "uniknęła!", "nie uniknęła...");
         });
@@ -143,7 +147,7 @@ class FightEntity {
         });
 
         this.getChildElementByName("save").addEventListener("click", function () {
-            let userAgree = window.confirm("Czy na pewno chcesz zapisać tą postać?");
+            let userAgree = window.confirm("Czy na pewno chcesz zapisać tę postać?");
 
             if (userAgree) {
                 let data = {
@@ -156,8 +160,8 @@ class FightEntity {
                     int: ThisVariable.NodeElements.intInput.value,
                     sw: ThisVariable.NodeElements.swInput.value,
                     ogd: ThisVariable.NodeElements.ogdInput.value,
-                    atk: ThisVariable.NodeElements.hpInput.value,
-                    hp: ThisVariable.NodeElements.initiativeInput.value ,
+                    // atk: ThisVariable.NodeElements.?,
+                    hp: ThisVariable.NodeElements.hpInput.value,
                     dmg: ThisVariable.NodeElements.dmgInput.value,
                     notes: ThisVariable.NodeElements.notesInput.value
                 };
@@ -179,7 +183,7 @@ class FightEntity {
                             //     resolve(parseInt(xhr.responseText));
                         } 
                         else if (xhr.status == 404) {
-                            console.error("Nie można otrzymać połączenia z plikiem editor.php");
+                            console.error("Nie można wysłać żądania do pliku editor.php");
                         } 
                         else
                             console.error("Wystąpił błąd połączenia: " + xhr.HEADERS_RECEIVED)
@@ -196,7 +200,7 @@ class FightEntity {
             let userAgree = true;
             
             if (DELETE_ENTITY_CONFIRM_OPTION)
-                userAgree = window.confirm("Czy na pewno chcesz usunąć tą postać?");
+                userAgree = window.confirm("Czy na pewno chcesz usunąć tę postać?");
 
             if (userAgree) {
                 ThisVariable.CONTAINER_ELEM.removeChild(ThisVariable.ENTITY_ELEM);
@@ -205,6 +209,23 @@ class FightEntity {
         });
 
         this.ENTITY_ELEM.style.backgroundColor = this.hexToRgbA(this.NodeElements.colorInput.value);
+    }
+
+    drawInitiative () {
+        let ThisVariable = this;
+
+        let selectElem = ThisVariable.getChildElementByName("initiative");
+        let agility = parseInt(ThisVariable.getChildElementByName("zr").value);
+
+        console.log("Rolling for initiative... ", selectElem);
+
+        let RandomNumber = GetTrueRandom(1, 10);
+
+        RandomNumber.then(function (randomNumer) {
+            selectElem.value = randomNumer + parseInt(agility);
+        }).catch(function (error) {
+            window.alert("Wystąpił błąd połączenia");
+        });
     }
 
     /**
