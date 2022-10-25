@@ -1,5 +1,6 @@
 let DELETE_ENTITY_CONFIRM_OPTION = true;
 let MULTIPLE_ENTITY_INITIATIVE_DRAW_OPTION = true;
+let MULTIPLE_ENTITY_VARIATE_STATS = false;
 let MODIFIER_PROMPT_OPTION = true;
 let DEFAULT_ENTITY_COLOR = "#f7a308";
 
@@ -28,7 +29,7 @@ dataFileNames.forEach(fileName => {
     xmlhttp.send();
 });
 
-let randomizer = new Randomizer(200);
+let randomizer = new Randomizer(200, 20);
 
 let chaosMutations = DATA[0];
 
@@ -153,6 +154,7 @@ for (let enterInput of document.getElementsByClassName("enter_click")) {
 };
 
 function SettingsUpdateCheck (checkboxElem) {
+    console.log("Settings change...");
     switch (checkboxElem.id) {
         case "delete_entity_confirm":
             if (checkboxElem.checked)
@@ -171,6 +173,13 @@ function SettingsUpdateCheck (checkboxElem) {
         case "default_color":
             DEFAULT_ENTITY_COLOR = document.getElementById("default_color").value;
             console.log(DEFAULT_ENTITY_COLOR);
+        break;
+
+        case "multiple_entities_variate_stats":
+            if (checkboxElem.checked)
+                MULTIPLE_ENTITY_INITIATIVE_DRAW_OPTION = true;
+            else
+                MULTIPLE_ENTITY_INITIATIVE_DRAW_OPTION = false
         break;
 
         case "multiple_entities_initiative_draw":
@@ -343,12 +352,12 @@ function ShowCriticalEffect(type) {
     }
 }
 
-async function GetTrueRandom(from = 0, to = 0, loadingIconElem = document.createElement("div"), numbersQuantity = 1) {
+async function GetTrueRandom(from = 0, to = 0, loadingIconElem = document.createElement("div"), numbersQuantity = 1, randomNumbersKeepAmount) {
 
     let randomReturn;
 
     if (!Number.isInteger(parseInt(from)) || !Number.isInteger(parseInt(to))) {
-        console.log("error!");
+        console.log("error!", from, to);
         return 0;
     }
     
@@ -356,12 +365,12 @@ async function GetTrueRandom(from = 0, to = 0, loadingIconElem = document.create
     loadingIconElem.classList.add("loading_animation");
 
     if (numbersQuantity <= 1)
-        randomReturn = await randomizer.getRandomNumber(from, to);
+        randomReturn = await randomizer.getRandomNumber(from, to, randomNumbersKeepAmount);
 
     else {
         randomReturn = [];
         for (let i = 0; i < numbersQuantity; i++) {
-            randomReturn.push(await randomizer.getRandomNumber(from, to));
+            randomReturn.push(await randomizer.getRandomNumber(from, to, randomNumbersKeepAmount));
         }
     }
 
@@ -485,7 +494,6 @@ function AddFightEntity () {
 
 async function AddMultipleFightEntity () {
     let amountInput = Math.abs(parseInt(window.prompt("Podaj ilość bytów które mają zostać dodane") ?? 0));
-    let randomStatsInput = window.confirm("Czy zmodyfikować losowo statystyki w odchyłach do 10? (OK - tak, ANULUJ - nie)");
 
     // Create amountInput entities
     for (let i = 0; i < amountInput; i++) {
@@ -493,7 +501,7 @@ async function AddMultipleFightEntity () {
         let fightEntityNameInput = fightEntity.NodeElements.nameInput;
 
         // Randomize stats
-        if (randomStatsInput)
+        if (MULTIPLE_ENTITY_VARIATE_STATS)
             baseStats.forEach(async stat => {
                 let inputEl = fightEntity.NodeElements[stat + "Input"];
                 inputEl.value = await GetRandomizedStat(parseInt(inputEl.value));
@@ -561,7 +569,7 @@ function RandomizeStat (inputId) {
     let statInput = document.getElementById(inputId);
     let stat = parseInt(statInput.value);
 
-    let RandomNumber = GetTrueRandom(stat - 10, stat + 10);
+    let RandomNumber = GetTrueRandom(stat - 10, stat + 10, undefined, undefined, 3);
 
     console.log(stat, RandomNumber);
 

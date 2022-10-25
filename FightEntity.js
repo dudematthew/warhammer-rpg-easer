@@ -51,7 +51,6 @@ class FightEntity {
         this.NodeElements.hpInput.value = this.getElementById("fight_organizer_input_hp").value;
         this.NodeElements.initiativeInput.value = this.getElementById("fight_organizer_input_initiative").value;
         this.NodeElements.dmgInput.value = this.getElementById("fight_organizer_input_dmg").value;
-        console.log(this.NodeElements.dmgInput.value, this.getChildElementByName("dmg").value);
         this.NodeElements.notesInput.value = this.getElementById("fight_organizer_input_notes").value;
         this.NodeElements.colorInput = this.getElementById("color_input");
 

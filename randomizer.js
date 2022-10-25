@@ -19,7 +19,8 @@ class Randomizer {
         this.randomNumbersKeepAmount = randomNumbersKeepAmount;
         this.neededPercentToRefill = neededPercentToRefill;
         this.randomNumberSets = [];
-        this.currentlyProcessing = false;
+        this.requestPending = false;
+        this.currentlyReffiling = [];
     }
 
     /**
@@ -27,21 +28,23 @@ class Randomizer {
      * @param {int} from random number minimum value
      * @param {int} to random number maximum value
      */
-    async getRandomNumber(from = 0, to = 1) {
+    async getRandomNumber(from = 0, to = 1, keepAmount = this.randomNumbersKeepAmount) {
+        console.log(`Requested | ${from} | ${to} | ${keepAmount}`);
         let randomNumberSetKey = this.getNumberSetKey(from, to);
         let randomNumberSet = (randomNumberSetKey != null) ? this.randomNumberSets[randomNumberSetKey] : null;
 
         if (randomNumberSet != null) {
-            if (randomNumberSet.numbers.length <= this.randomNumbersKeepAmount * (this.neededPercentToRefill / 100)) {
-                this.refillRandomNumbers(from, to);
+            if (randomNumberSet.numbers.length <= keepAmount * (this.neededPercentToRefill / 100)) {
+                await this.waitForRequestFinish();
+                this.refillRandomNumbers(from, to, keepAmount);
             }
-            console.log("Giving one random number, currently ", randomNumberSet.numbers.length);
+            console.log("Random number popping... Currently ", randomNumberSet);
             return randomNumberSet.numbers.pop();
         } else {
-            console.log("Waiting for refilling...");
-            await this.refillRandomNumbers(from, to);
-            console.log("Refilled! Currently set looks like this: ", randomNumberSet);
-            return await this.getRandomNumber(from, to);
+            await this.waitForRequestFinish();
+            await this.refillRandomNumbers(from, to, keepAmount);
+            
+            return await this.getRandomNumber(from, to, keepAmount);
         }
     }
 
@@ -70,13 +73,33 @@ class Randomizer {
     }
 
     /**
+     * Returns true when current request is finished
+     * @returns {boolean}
+     */
+    async waitForRequestFinish () {
+        while (true) {
+            if (!this.requestPending)
+                return true;
+            await new Promise(r => setTimeout(r, 100));
+        }
+    }
+
+    /**
      * Refill saved number sets
      * @param {int} from random numbers minimum value
      * @param {int} to random number maximum value
      */
     async refillRandomNumbers(from = 0, to = 1, keepAmount = this.randomNumbersKeepAmount) {
 
-        console.log("Refilling random numbers...");
+        if (this.currentlyReffiling.includes(`${from} ${to}`)) {
+            await this.waitForRequestFinish();
+            console.log("Reffiling aborted. Currently ", `${from} ${to}`, " is being reffiled.");
+            return 1;
+        } else {
+            console.log("Refilling needed. Currently refilling: ", this.currentlyReffiling);
+        }
+
+        this.currentlyReffiling.push(`${from} ${to}`);
 
         let randomNumberSetKey = this.getNumberSetKey(from, to);
         let randomNumberSet = (randomNumberSetKey != null) ? this.randomNumberSets[randomNumberSetKey] : null;
@@ -95,30 +118,15 @@ class Randomizer {
 
         // Calculate amount of numbers that
         // needs to be fetched
-        let amount = (this.randomNumbersKeepAmount - randomNumberSet.numbers.length);
+        let amount = (keepAmount - randomNumberSet.numbers.length);
 
         // Amount has to be greater than 0
-        if (amount <= 0)
+        if (amount <= 0) {
+            this.currentlyReffiling.splice(this.currentlyReffiling.indexOf(`${from} ${to}`), 1);
             return 0;
-
-        console.log("Aktualnie przetwarza: ", this.currentlyProcessing);
-
-        let randomNumbers = null;
-
-        // Wait for the moment API is free to use
-        let pseudoTimeout = 0;
-        while (randomNumbers == null || pseudoTimeout < 100) {
-
-            if (!this.currentlyProcessing)
-            randomNumbers = await this.fetchRandomNumbers(from, to, amount);
-
-            // Calculate amount again
-            amount = (this.randomNumbersKeepAmount - randomNumberSet.numbers.length);
-
-            // sleep 100
-            await new Promise(r => setTimeout(r, 100));
-            pseudoTimeout++;
         }
+
+        let randomNumbers = await this.fetchRandomNumbers(from, to, amount);
 
 
         if (randomNumbers != null) {
@@ -132,6 +140,8 @@ class Randomizer {
             }
         }
 
+        console.log("Refill done, currently: ", randomNumbers);
+        this.currentlyReffiling.splice(this.currentlyReffiling.indexOf(`${from} ${to}`), 1);
         return 1;
     }
 
@@ -146,11 +156,8 @@ class Randomizer {
     }
 
     makeRequest(method, url) {
-        console.log("Wykonano request");
-
         return new Promise(function (resolve, reject) {
             var xhr = new XMLHttpRequest();
-            xhr.timeout = 30000;
             xhr.open(method, url);
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 300) {
@@ -182,19 +189,19 @@ class Randomizer {
      */
     async fetchRandomNumbers(from = 0, to = 0, amount) {
         
-        let randomNumbers = null
-        this.currentlyProcessing = true;
+        let randomNumbers = null;
 
+        this.requestPending = true;
+        console.log(`Random numbers request pending (${from} > ${to})...`);
         await this.makeRequest('GET', "https://www.random.org/integers/?num=" + amount + "&min=" + from + "&max=" + to + "&col=1&base=10&format=plain&rnd=new")
-            .then(function (data) {
-                randomNumbers = data.trim().split('\n');
-            })
-            .catch(function (err) {
-                this.connectionError(err);
-            });
-
-        console.log("Zakończono procesowanie");
-        this.currentlyProcessing = false;
+        .then(function (data) {
+            randomNumbers = data.trim().split('\n');
+        })
+        .catch(function (err) {
+            this.connectionError(err);
+        });
+        this.requestPending = false;
+        console.log("Random numbers request done: ", randomNumbers);
 
         return randomNumbers;
     }

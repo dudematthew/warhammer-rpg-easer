@@ -18,7 +18,7 @@
         <a href="./editor.php" target="_blank">
             <img src="./img/logo.png" class="icon" alt="Warhammer" />
         </a>
-        <h1 class="--no-break">Warhammer 2 RPG Easer v1.1</h1>
+        <h1 class="--no-break">Warhammer 2 RPG Easer v1.2</h1>
 
 
         <div class="separate"></div>
@@ -346,6 +346,9 @@
             <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="multiple_entities_initiative_draw" checked>
             <h4 class="--no-break">Automatycznie losuj inicjatywę przy dodawaniu wielu jednostek</h4>
             <br><br>
+            <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="multiple_entities_variate_stats" disabled>
+            <h4 class="--no-break">Automatycznie wprowadzaj wariację statystyk przy dodawaniu wielu jednostek (wadliwe)</h4>
+            <br><br>
             <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="delete_entity_confirm" checked>
             <h4 class="--no-break">Pytaj o potwierdzenie przy usuwaniu postaci</h4>
             <br><br>
@@ -354,6 +357,8 @@
             <br><br>
             <input type="color" class="--small" onchange="SettingsUpdateCheck(this);" id="default_color" value="#f7a308" />
             <h4 class="--no-break">Wybierz domyślny kolor</h4>
+            <br><br>
+            <button type="button" style="height: 80px" onclick="RelocateFightEntities();">Zaktualizuj rozłożenie bytów</button>
     </div>
 
     <script src="./randomizer.js"></script>
