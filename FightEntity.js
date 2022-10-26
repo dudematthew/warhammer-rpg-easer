@@ -216,12 +216,13 @@ class FightEntity {
         let selectElem = ThisVariable.getChildElementByName("initiative");
         let agility = parseInt(ThisVariable.getChildElementByName("zr").value);
 
-        console.log("Rolling for initiative... ", selectElem);
+        console.log("Rolling for initiative... ");
 
         let RandomNumber = GetTrueRandom(1, 10);
 
-        RandomNumber.then(function (randomNumer) {
-            selectElem.value = randomNumer + parseInt(agility);
+        RandomNumber.then(function (randomNumber) {
+            console.log("Rolled for initiative: ", randomNumber, parseInt(agility));
+            selectElem.value = randomNumber + parseInt(agility);
         }).catch(function (error) {
             window.alert("Wystąpił błąd połączenia");
         });

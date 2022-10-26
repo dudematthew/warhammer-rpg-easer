@@ -343,23 +343,25 @@
 
     <div class="floating_menu">
         <h3>Ustawienia</h3>
-            <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="multiple_entities_initiative_draw" checked>
-            <h4 class="--no-break">Automatycznie losuj inicjatywę przy dodawaniu wielu jednostek</h4>
-            <br><br>
-            <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="multiple_entities_variate_stats" disabled>
-            <h4 class="--no-break">Automatycznie wprowadzaj wariację statystyk przy dodawaniu wielu jednostek (wadliwe)</h4>
-            <br><br>
             <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="delete_entity_confirm" checked>
             <h4 class="--no-break">Pytaj o potwierdzenie przy usuwaniu postaci</h4>
             <br><br>
+            <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="multiple_entities_initiative_draw" checked>
+            <h4 class="--no-break">Automatycznie losuj inicjatywę przy dodawaniu wielu jednostek</h4>
+            <br><br>
             <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="modifier_prompt" checked>
             <h4 class="--no-break">Pytaj o modyfikator przy rzutach postaci</h4>
+            <br><br>
+            <input type="checkbox" onchange="SettingsUpdateCheck(this);" id="multiple_entities_variate_stats" checked>
+            <h4 class="--no-break">Automatycznie wprowadzaj wariację statystyk przy dodawaniu wielu jednostek</h4>
             <br><br>
             <input type="color" class="--small" onchange="SettingsUpdateCheck(this);" id="default_color" value="#f7a308" />
             <h4 class="--no-break">Wybierz domyślny kolor</h4>
             <br><br>
             <button type="button" style="height: 80px" onclick="RelocateFightEntities();">Zaktualizuj rozłożenie bytów</button>
     </div>
+
+    <div id="trash_can"></div>
 
     <script src="./randomizer.js"></script>
     <script src="./FightEntity.js"></script>

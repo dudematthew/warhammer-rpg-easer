@@ -1,8 +1,9 @@
 let DELETE_ENTITY_CONFIRM_OPTION = true;
 let MULTIPLE_ENTITY_INITIATIVE_DRAW_OPTION = true;
-let MULTIPLE_ENTITY_VARIATE_STATS = false;
+let MULTIPLE_ENTITY_VARIATE_STATS = true;
 let MODIFIER_PROMPT_OPTION = true;
 let DEFAULT_ENTITY_COLOR = "#f7a308";
+SettingsSetup();
 
 let DATA = [];
 
@@ -29,7 +30,7 @@ dataFileNames.forEach(fileName => {
     xmlhttp.send();
 });
 
-let randomizer = new Randomizer(200, 20);
+let randomizer = new Randomizer(100, 20);
 
 let chaosMutations = DATA[0];
 
@@ -153,8 +154,24 @@ for (let enterInput of document.getElementsByClassName("enter_click")) {
     });
 };
 
+function SettingsSetup () {
+    let settingsIds = [
+        "delete_entity_confirm",
+        "modifier_prompt",
+        "default_color",
+        "multiple_entities_variate_stats",
+        "multiple_entities_initiative_draw",
+    ];
+
+    settingsIds.forEach(id => {
+        let settingsElem = document.getElementById(id);
+
+        SettingsUpdateCheck(settingsElem);
+    });
+}
+
 function SettingsUpdateCheck (checkboxElem) {
-    console.log("Settings change...");
+    console.log("Settings change... ", checkboxElem.id, checkboxElem.checked);
     switch (checkboxElem.id) {
         case "delete_entity_confirm":
             if (checkboxElem.checked)
@@ -352,7 +369,7 @@ function ShowCriticalEffect(type) {
     }
 }
 
-async function GetTrueRandom(from = 0, to = 0, loadingIconElem = document.createElement("div"), numbersQuantity = 1, randomNumbersKeepAmount) {
+async function GetTrueRandom(from = 1, to = 2, loadingIconElem = document.getElementById("trash_can"), numbersQuantity = 1, randomNumbersKeepAmount) {
 
     let randomReturn;
 
@@ -362,7 +379,8 @@ async function GetTrueRandom(from = 0, to = 0, loadingIconElem = document.create
     }
     
     // Start loading animation
-    loadingIconElem.classList.add("loading_animation");
+    if (typeof loadingIconElem !== undefined)
+        loadingIconElem.classList.add("loading_animation");
 
     if (numbersQuantity <= 1)
         randomReturn = await randomizer.getRandomNumber(from, to, randomNumbersKeepAmount);
@@ -375,7 +393,8 @@ async function GetTrueRandom(from = 0, to = 0, loadingIconElem = document.create
     }
 
     // End loading animation
-    loadingIconElem.classList.remove("loading_animation");
+    if (typeof loadingIconElem !== undefined)
+        loadingIconElem.classList.remove("loading_animation");
 
     return parseInt(randomReturn);
 }
@@ -569,11 +588,15 @@ function RandomizeStat (inputId) {
     let statInput = document.getElementById(inputId);
     let stat = parseInt(statInput.value);
 
-    let RandomNumber = GetTrueRandom(stat - 10, stat + 10, undefined, undefined, 3);
+    let RandomNumber = GetTrueRandom(1, 21);
 
     console.log(stat, RandomNumber);
 
     RandomNumber.then(function (randomNumer) {
+        randomNumer = parseInt(randomNumer);
+        randomNumer -= 11;
+        stat += randomNumer;
+
         statInput.value = randomNumer >= 0 ? randomNumer : 0;
     }).catch(function (error) {
         window.alert("Wystąpił błąd połączenia");
@@ -587,7 +610,14 @@ function RandomizeAllStats () {
 }
 
 async function GetRandomizedStat (statValue) {
-    return await GetTrueRandom(statValue - 10, statValue + 10);
+    let randomNumber = parseInt(await GetTrueRandom(1, 21));
+
+    console.log(statValue, randomNumber);
+
+    randomNumber -= 11;
+    statValue += randomNumber;
+
+    return randomNumer >= 0 ? randomNumer : 0;
 }
     
 // Has to be last line of code - convert to int on inputs change

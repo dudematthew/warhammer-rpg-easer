@@ -91,6 +91,7 @@ class Randomizer {
      */
     async refillRandomNumbers(from = 0, to = 1, keepAmount = this.randomNumbersKeepAmount) {
 
+        // Check if there is an ongoing reffil with same random numbers
         if (this.currentlyReffiling.includes(`${from} ${to}`)) {
             await this.waitForRequestFinish();
             console.log("Reffiling aborted. Currently ", `${from} ${to}`, " is being reffiled.");
@@ -99,8 +100,10 @@ class Randomizer {
             console.log("Refilling needed. Currently refilling: ", this.currentlyReffiling);
         }
 
+        // Indicate global reffiling info
         this.currentlyReffiling.push(`${from} ${to}`);
 
+        // Get random number set
         let randomNumberSetKey = this.getNumberSetKey(from, to);
         let randomNumberSet = (randomNumberSetKey != null) ? this.randomNumberSets[randomNumberSetKey] : null;
         let found = true;
@@ -141,7 +144,9 @@ class Randomizer {
         }
 
         console.log("Refill done, currently: ", randomNumbers);
+        // Indicate refill completion
         this.currentlyReffiling.splice(this.currentlyReffiling.indexOf(`${from} ${to}`), 1);
+        
         return 1;
     }
 
